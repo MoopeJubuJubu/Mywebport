@@ -1,17 +1,13 @@
-// index.js — small interactive enhancements for the portfolio
-// - smooth scroll for in-page nav links
-// - simple lightbox for project images (progressive enhancement)
-// - keyboard navigation (Esc, ←, →)
-// - reveal-on-scroll for project cards
+
 
 (function () {
   'use strict';
 
-  // Helpers
+ 
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-  // Smooth scroll for internal nav links
+  
   function initSmoothScroll() {
     const links = $$('a[href^="#"]');
     links.forEach(a => {
@@ -32,7 +28,7 @@
     });
   }
 
-  // Lightbox implementation
+  
   function initLightbox() {
     const lightbox = $('#lightbox');
     if (!lightbox) return;
@@ -47,7 +43,7 @@
     const cards = $$('.project-card');
     if (!cards.length) return;
 
-    // Build an array of image sources and captions for navigation
+    
     const gallery = cards.map(card => ({
       href: card.getAttribute('href'),
       caption: card.dataset.caption || card.querySelector('h3')?.textContent || '',
@@ -79,7 +75,7 @@
     function showNext() { show((current + 1) % gallery.length); }
     function showPrev() { show((current - 1 + gallery.length) % gallery.length); }
 
-    // Click on a project card opens lightbox (progressive enhancement)
+    
     cards.forEach((card, i) => {
       card.addEventListener('click', (ev) => {
         // If the user used ctrl/cmd click, let browser open a new tab
@@ -92,7 +88,7 @@
       });
     });
 
-    // Make certificate thumbnails open in the lightbox as well
+    
     const certLinks = $$('.cert-link');
     certLinks.forEach(link => {
       link.addEventListener('click', (ev) => {
@@ -110,15 +106,15 @@
       });
     });
 
-    // Close handlers
+    
     closeBtn.addEventListener('click', hide);
     backdrop.addEventListener('click', hide);
 
-    // Prev/Next
+  
     nextBtn.addEventListener('click', showNext);
     prevBtn.addEventListener('click', showPrev);
 
-    // Keyboard
+
     document.addEventListener('keydown', (e) => {
       if (lightbox.getAttribute('aria-hidden') === 'true') return;
       if (e.key === 'Escape') hide();
@@ -127,7 +123,7 @@
     });
   }
 
-  // Reveal-on-scroll using IntersectionObserver
+  r
   function initRevealOnScroll() {
     const cards = $$('.project-card');
     if (!('IntersectionObserver' in window) || !cards.length) {
@@ -172,3 +168,4 @@
   });
 
 })();
+
